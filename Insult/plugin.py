@@ -1,5 +1,5 @@
 ###
-# Copyright (c) 2005, Daniel DiPaolo
+# Copyright (c) 2005, Daniel DiPaolo, 2013 Detlef Prskavec (praise->insult)
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -33,18 +33,18 @@ from supybot.commands import *
 import supybot.plugins as plugins
 import supybot.ircutils as ircutils
 
-class Praise(plugins.ChannelIdDatabasePlugin):
-    """Praise is a plugin for ... well, praising things.  Feel free to add
-    your own flavor to it by customizing what praises it gives.  Use "praise
+class Insult(plugins.ChannelIdDatabasePlugin):
+    """Insult is a plugin for ... well, insulting things.  Feel free to add
+    your own flavor to it by customizing what insults it gives.  Use "insult
     add <text>" to add new ones, making sure to include "$who" in <text> where
-    you want to insert the thing being praised.
+    you want to insert the thing being insulted.
     """
     _meRe = re.compile(r'\bme\b', re.I)
     _myRe = re.compile(r'\bmy\b', re.I)
     _ichRe = re.compile(r'\bich\b', re.I)
     _michRe = re.compile(r'\bmich\b', re.I)
     _meinRe = re.compile(r'\bmein\n', re.I)
-    
+
     def _replaceFirstPerson(self, s, nick):
         s = self._meRe.sub(nick, s)
         s = self._myRe.sub('%s\'s' % nick, s)
@@ -55,13 +55,13 @@ class Praise(plugins.ChannelIdDatabasePlugin):
 
     def addValidator(self, irc, text):
         if '$who' not in text:
-            irc.error('Praises must contain $who.', Raise=True)
+            irc.error('Insults must contain $who.', Raise=True)
 
-    def praise(self, irc, msg, args, channel, id, text):
+    def insult(self, irc, msg, args, channel, id, text):
         """[<channel>] [<id>] <who|what> [for <reason>]
 
-        Praises <who|what> (for <reason>, if given).  If <id> is given, uses
-        that specific praise.  <channel> is only necessary if the message isn't
+        Insults <who|what> (for <reason>, if given).  If <id> is given, uses
+        that specific insult.  <channel> is only necessary if the message isn't
         sent in the channel itself.
         """
         if ' for ' in text:
@@ -72,27 +72,27 @@ class Praise(plugins.ChannelIdDatabasePlugin):
             target = 'itself'
         if id is not None:
             try:
-                praise = self.db.get(channel, id)
+                insult = self.db.get(channel, id)
             except KeyError:
-                irc.error(format('There is no praise with id #%i.', id))
+                irc.error(format('There is no insult with id #%i.', id))
                 return
         else:
-            praise = self.db.random(channel)
-            if not praise:
-                irc.error(format('There are no praises in my database ' \
+            insult = self.db.random(channel)
+            if not insult:
+                irc.error(format('There are no insults in my database ' \
                                  'for %s.', channel))
                 return
-        text = self._replaceFirstPerson(praise.text, msg.nick)
+        text = self._replaceFirstPerson(insult.text, msg.nick)
         reason = self._replaceFirstPerson(reason, msg.nick)
         target = self._replaceFirstPerson(target, msg.nick)
         text = text.replace('$who', target)
         if reason:
             text += ' for ' + reason
         if self.registryValue('showIds', channel):
-            text += format(' (#%i)', praise.id)
+            text += format(' (#%i)', insult.id)
         irc.reply(text, prefixNick=False, action=False)
-    praise = wrap(praise, ['channeldb', optional('id'), 'text'])
+    insult = wrap(insult, ['channeldb', optional('id'), 'text'])
 
-Class = Praise
+Class = Insult
 
 # vim:set shiftwidth=4 softtabstop=4 expandtab textwidth=79:
