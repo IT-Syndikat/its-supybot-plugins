@@ -3,7 +3,7 @@ supybot-plugins for #itsyndikat channelbot
 
 Plugins for the irc channelbot of the it-syndikat hackerspace from innsbruck.
 
-join me on irc.freenode.net #itsyndikat
+join us on irc.freenode.net #itsyndikat
 
 Currently available plugins:
 ----------------------------
