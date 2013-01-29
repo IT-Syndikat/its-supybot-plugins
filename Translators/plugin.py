@@ -49,7 +49,7 @@ class Translators(callbacks.Privmsg):
     ibk = wrap(ibk, ['text'])
     
 
-	def xi(self, irc, msg, args, text):
+    def xi(self, irc, msg, args, text):
         """text
 
         translates text to the dialect of vorarlberg
