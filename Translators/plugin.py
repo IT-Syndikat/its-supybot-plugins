@@ -45,6 +45,7 @@ class Translators(callbacks.Privmsg):
         translates text to the dialect of innsbruck
         """
         text = re.sub(r'k', 'kch', text)
+        text = re.sub(r'st', 'scht', text)
         irc.reply(text.rstrip(".,?!") + ", kchhhh!", prefixNick=True)
     ibk = wrap(ibk, ['text'])
     
