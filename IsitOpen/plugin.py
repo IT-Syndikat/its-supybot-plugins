@@ -35,7 +35,7 @@ import supybot.ircutils as ircutils
 import supybot.callbacks as callbacks
 import urllib2
 import simplejson
-
+import datetime
 
 class IsitOpen(callbacks.Plugin):
     """Add the help for "@plugin help IsitOpen" here
@@ -62,7 +62,7 @@ class IsitOpen(callbacks.Plugin):
         data = self._fetchJsonData()
         reply = 'negative!'
         if data['open'] is True:
-            date = datetime.datetime.fromtimestamp(date['lastchange'])
+            date = datetime.datetime.fromtimestamp(data['lastchange'])
             reply = 'positive! space has been open since ' + str(date)
         irc.reply(reply, prefixNick=True)
 
