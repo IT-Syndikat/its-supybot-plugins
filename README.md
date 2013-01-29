@@ -12,4 +12,5 @@ Currently available plugins:
     this is using the api of http://bitcoincharts.com
 2. Praise (slightly modified default plugin)
 3. Insult (derived from Praise)
-
+4. Translators (translate to xibergian or tyrolean dialect)
+5. IsitOpen (check if the battlestations in the it-syndikat are manned)

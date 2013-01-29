@@ -1,0 +1,1 @@
+this plugin can be used to query the status of the it-syndikat hackerspace in innsbruck. it tells you if there are currently people in the space (that have pushed the announce button on our it-syndikat open device.
