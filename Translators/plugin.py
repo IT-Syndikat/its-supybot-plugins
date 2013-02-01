@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ###
 # Copyright (c) 2013, detlef prskavec
 # All rights reserved.
@@ -34,6 +35,7 @@ import supybot.plugins as plugins
 import supybot.ircutils as ircutils
 import supybot.callbacks as callbacks
 import re
+import random
 
 class Translators(callbacks.Privmsg):
     """Add the help for "@plugin help Translators" here
@@ -58,7 +60,26 @@ class Translators(callbacks.Privmsg):
         irc.reply(text.rstrip(".,?!") + ", odr?", prefixNick=True)
     xi = wrap(xi, ['text'])
 
+    
+    def wean(self, irc, msg, args, text):
+        """text
+
+        translates text to the dialect of vienna
+        """
+        text = text.encode('utf-8')
+        suffixes = [u'heast!', u'oida!', u'heast oida!', u'ka schmäh oida!']
+        text = re.sub(r'ill', u'üü', text)
+        text = re.sub(r'was', 'wos', text)
+        text = re.sub(r'das', 'des', text)
+        text = re.sub(r'alt', 'oid', text)
+        #add more subs
+        suffix = suffixes[random.randint(0,len(suffixes)-1)]
+        response = text.rstrip(u'.,?!') + ', ' + suffix
+        irc.reply(response.encode("utf-8"), prefixNick=True)
+    wean = wrap(wean, ['text'])
+
 Class = Translators
 
 
 # vim:set shiftwidth=4 softtabstop=4 expandtab textwidth=79:
+# vim:set fileencoding=UTF-8:
