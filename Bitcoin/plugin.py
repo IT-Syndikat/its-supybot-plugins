@@ -149,12 +149,16 @@ class Bitcoin(callbacks.Plugin):
                     amount = res['value']
                     cur = res['currency']
                     irc.reply(symbol+': '+ str(amount)+cur+' ('+str(date)+')')
+                    return
                 else:
                     irc.reply('no data for '+symbol)
+                    return
             else:
                 irc.reply('bitcoin query can only be called from a channel.')
+                return
         else:
             irc.reply('enter a symbol (e.g. mtgoxEUR)')
+            return
     query = wrap(query, ['text'])   
 
     def convert(self, irc, msg, args, amount, currency):
@@ -169,11 +173,15 @@ class Bitcoin(callbacks.Plugin):
             currency = "EUR"
 
         if irc.isChannel(msg.args[0]) == True:
-            symbol = defaultMarkets[currency]
+            if defaultMarkets.__contains__(currency) == True:
+                symbol = defaultMarkets[currency]
+            else:
+                symbol = None
             if symbol is None:
                 reply = "currency unsupported. supported currencies are: "
                 reply = reply + str(defaultMarkets.keys())
                 irc.reply(reply, prefixNick=True)
+                return
             channel = msg.args[0]
             json = self._getLastEntry(channel)
             res = self._fetchLastTrade(json, symbol)
@@ -182,8 +190,10 @@ class Bitcoin(callbacks.Plugin):
                 reply = str(amount) + " " + currency + " = "
                 reply = reply + str(amount / float(rate)) + " BTC"
                 irc.reply(reply, prefixNick=True)
+                return
             else:
                 irc.reply('no data for '+symbol, prefixNick=True)
+                return
         else:
             irc.reply('bitcoin query can only be called from a channel.')
     convert = wrap(convert, ['float', optional('text', 'EUR')])
