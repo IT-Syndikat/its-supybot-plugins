@@ -14,3 +14,5 @@ Currently available plugins:
 3. Insult (derived from Praise)
 4. Translators (translate to xibergian or tyrolean dialect)
 5. IsitOpen (check if the battlestations in the it-syndikat are manned)
+6. Karma (default plugin due to be pimped)
+7. Poll (non-default [debian] plugin from https://github.com/stepnem/supybot-plugins.git)
