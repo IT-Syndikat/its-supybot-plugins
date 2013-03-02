@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ###
 # Copyright (c) 2013, d.prskavec
 # All rights reserved.
@@ -69,6 +70,21 @@ class Stuff(callbacks.Plugin):
         return
     wer = wrap(wer, [optional('channel'), 'text'])
 
+    
+#    def langweilig(self, irc, msg, args):
+#        """takes no arguments
+#
+#        vermindert langeweile ... NICHT!"""
+#        replies = [ u'Lies ein Buch!'.encode('utf-8'), 
+#                    u'Räum dein Zimmer auf!'.encode('utf-8'),
+#                    u'Lauf eine Runde um den Block!'.encode('utf-8'),
+#                    u'Mach deine Hausaufgaben!'.encode('utf-8'),
+#                    u'Schreib mir ein neues Plugin!'.encode('utf-8')
+#                    ];
+#        snark = choice(replies)
+#        irc.reply(choice(replies), prefixNick=True) 
+#        return
+    
 
 Class = Stuff
 
