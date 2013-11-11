@@ -168,7 +168,7 @@ class Bitcoin(callbacks.Plugin):
         markets. currently works for USD and EUR. if no currency
         is given it defaults to EUR
         """
-        defaultMarkets = { "EUR":"btc24EUR", "USD":"mtgoxUSD" }
+        defaultMarkets = { "EUR":"mtgoxEUR", "USD":"mtgoxUSD" }
         if currency is None:
             currency = "EUR"
 
